@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SJ Ice World | Premium Dairy & Frozen Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #FAF7F2;
+  --warm-white: #FFFDF9;
+  --gold: #C9A84C;
+  --gold-light: #E8C96A;
+  --dark: #111111;
+  --dark2: #1C1C1C;
+  --border: #EDE9E2;
+  --text: #111111;
+  --muted: #6B6B6B;
+  --radius: 16px;
+  --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+  --shadow: 0 4px 24px rgba(0,0,0,0.07);
+  --shadow-hover: 0 16px 48px rgba(0,0,0,0.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh;font-size:15px}
+::-webkit-scrollbar{width:3px;height:3px}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
+
+/* ── TOP NAV ── */
+.topnav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(17,17,17,0.97);backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(201,168,76,0.22);
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 20px;
+}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-icon{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-icon svg{width:20px;height:20px;fill:#111}
+.logo-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:#fff;letter-spacing:.02em}
+.logo-name b{color:var(--gold)}
+.dnav{display:none;gap:2px}
+@media(min-width:600px){.dnav{display:flex}}
+.dnav a{
+  color:rgba(255,255,255,.65);text-decoration:none;
+  font-size:.82rem;font-weight:500;padding:7px 15px;border-radius:6px;
+  letter-spacing:.03em;transition:var(--transition)
+}
+.dnav a.active,.dnav a:hover{background:rgba(201,168,76,.14);color:var(--gold-light)}
+
+/* ── PAGE SYSTEM ── */
+.page{display:none;padding-top:56px;min-height:100vh}
+.page.active{display:block}
+
+/* ── BOTTOM NAV ── */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;z-index:999;
+  background:rgba(15,15,15,.98);border-top:1px solid rgba(201,168,76,.18);
+  display:flex;height:60px;
+}
+.bn{
+  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:3px;cursor:pointer;background:none;border:none;
+  color:rgba(255,255,255,.38);font-family:'DM Sans',sans-serif;
+  font-size:.64rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;
+  transition:var(--transition)
+}
+.bn svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.8}
+.bn.active{color:var(--gold)}
+.bn.active svg{stroke:var(--gold)}
+
+/* ── HERO ── */
+.hero{
+  position:relative;
+  height:calc(100svh - 56px);max-height:720px;min-height:460px;
+  display:flex;align-items:flex-end;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=1400&q=90&auto=format&fit=crop') center/cover no-repeat;
+}
+.hero-bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.93) 0%,rgba(0,0,0,.52) 50%,rgba(0,0,0,.18) 100%);
+}
+.hero-inner{position:relative;z-index:2;padding:0 22px 84px;width:100%}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,.13);border:1px solid rgba(201,168,76,.38);
+  color:var(--gold-light);font-size:.7rem;letter-spacing:.12em;
+  text-transform:uppercase;padding:5px 14px;border-radius:30px;
+  margin-bottom:16px;font-weight:500
+}
+.hero-badge i{width:5px;height:5px;background:var(--gold);border-radius:50%;display:inline-block}
+.hero h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,8vw,3.4rem);color:#fff;
+  line-height:1.13;margin-bottom:13px;font-weight:700
+}
+.hero h1 span{color:var(--gold-light)}
+.hero p{color:rgba(255,255,255,.62);font-size:.92rem;max-width:360px;margin-bottom:26px;font-weight:300}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:13px 24px;border-radius:9px;font-size:.88rem;
+  text-decoration:none;border:none;cursor:pointer;
+  font-family:'DM Sans',sans-serif;font-weight:600;
+  transition:var(--transition);letter-spacing:.02em
+}
+.btn-gold{background:var(--gold);color:#111}
+.btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+.btn-ghost{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.38)}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold)}
+
+/* ── STATS ── */
+.stats{
+  background:var(--dark);padding:32px 22px;
+  display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:10px
+}
+.stat{text-align:center}
+.stat-n{font-family:'Playfair Display',serif;font-size:1.9rem;color:var(--gold);font-weight:700;line-height:1}
+.stat-l{color:rgba(255,255,255,.42);font-size:.7rem;margin-top:5px;text-transform:uppercase;letter-spacing:.06em}
+
+/* ── SECTION ── */
+.sec{padding:48px 20px}
+.sec.bg-w{background:var(--warm-white)}
+.slabel{
+  display:flex;align-items:center;gap:10px;
+  font-size:.68rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:8px
+}
+.slabel::before{content:'';width:26px;height:1.5px;background:var(--gold)}
+.stitle{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,5vw,2.1rem);color:var(--dark);
+  line-height:1.18;font-weight:600
+}
+.stitle.w{color:#fff}
+.ssub{color:var(--muted);margin-top:8px;font-weight:300;font-size:.9rem;max-width:460px}
+.ssub.w{color:rgba(255,255,255,.48)}
+.sh{margin-bottom:28px}
+
+/* ── PRODUCT GRID ── */
+.pgrid{
+  display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px
+}
+@media(min-width:500px){.pgrid{grid-template-columns:repeat(3,1fr)}}
+@media(min-width:780px){.pgrid{grid-template-columns:repeat(4,1fr)}}
+
+.pcard{
+  background:#fff;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--border);transition:var(--transition);
+  box-shadow:var(--shadow)
+}
+.pcard:hover{transform:translateY(-6px);box-shadow:var(--shadow-hover);border-color:var(--gold)}
+.pcard.hide{display:none}
+
+.pimg{position:relative;overflow:hidden;height:148px;background:#f0ebe3}
+.pimg img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .5s ease;display:block
+}
+.pcard:hover .pimg img{transform:scale(1.07)}
+.pbody{padding:12px 14px 15px}
+.pcat{font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.pname{font-family:'Playfair Display',serif;font-size:.94rem;color:var(--dark);font-weight:600}
+.pdesc{font-size:.74rem;color:var(--muted);margin-top:4px;line-height:1.45}
+
+/* ── WHY ── */
+.wgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+@media(min-width:600px){.wgrid{grid-template-columns:repeat(4,1fr)}}
+.wcard{
+  background:#fff;border-radius:var(--radius);padding:22px 16px;
+  border:1px solid var(--border);transition:var(--transition);box-shadow:var(--shadow)
+}
+.wcard:hover{border-color:var(--gold);transform:translateY(-4px);box-shadow:var(--shadow-hover)}
+.wicon{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(201,168,76,.09);border:1px solid rgba(201,168,76,.22);
+  display:flex;align-items:center;justify-content:center;margin-bottom:13px
+}
+.wicon svg{width:22px;height:22px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.wcard h4{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:600;color:var(--dark);margin-bottom:5px}
+.wcard p{font-size:.77rem;color:var(--muted);font-weight:300;line-height:1.5}
+
+/* ── FILTER BAR ── */
+.fbar{display:flex;gap:8px;overflow-x:auto;padding:18px 20px 12px;-webkit-overflow-scrolling:touch}
+.fbar::-webkit-scrollbar{display:none}
+.fbtn{
+  flex-shrink:0;padding:9px 20px;border-radius:8px;
+  border:1.5px solid #DDD7CE;background:#fff;
+  color:var(--muted);font-size:.8rem;font-weight:500;
+  cursor:pointer;transition:var(--transition);white-space:nowrap;
+  font-family:'DM Sans',sans-serif
+}
+.fbtn.active{background:var(--dark);color:var(--gold);border-color:var(--dark)}
+
+/* ── CONTACT ── */
+.ctiles{display:flex;flex-direction:column;gap:12px}
+.ctile{
+  background:#fff;border:1px solid var(--border);
+  border-radius:var(--radius);padding:17px 19px;
+  display:flex;align-items:center;gap:15px;
+  transition:var(--transition);box-shadow:var(--shadow)
+}
+.ctile:hover{border-color:var(--gold);transform:translateX(4px)}
+.ctile-icon{
+  width:46px;height:46px;flex-shrink:0;border-radius:12px;
+  background:var(--cream);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center
+}
+.ctile-icon svg{width:21px;height:21px;stroke:var(--gold);fill:none;stroke-width:1.8}
+.ctile-lbl{font-size:.67rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:3px}
+.ctile-val{font-size:.92rem;color:var(--dark);font-weight:600}
+
+.abtn{
+  display:flex;align-items:center;gap:14px;
+  padding:17px 22px;border-radius:var(--radius);text-decoration:none;
+  font-weight:600;font-size:.94rem;transition:var(--transition);
+  border:none;font-family:'DM Sans',sans-serif
+}
+.abtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;flex-shrink:0}
+.abtn:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.15)}
+.a-call{background:var(--dark);color:#fff}
+.a-wa{background:#128C7E;color:#fff}
+.a-maps{background:var(--gold);color:#111}
+
+.hours-box{background:#fff;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.hours-head{background:var(--dark);padding:15px 20px}
+.hours-head h3{font-family:'Playfair Display',serif;color:#fff;font-size:.98rem}
+.hrow{display:flex;justify-content:space-between;padding:12px 20px;border-bottom:1px solid var(--border);font-size:.87rem}
+.hrow:last-child{border:none}
+.hrow .day{color:var(--muted)}
+.hrow .time{color:var(--dark);font-weight:600}
+
+/* ── FOOTER ── */
+.footer{
+  background:var(--dark);padding:26px 22px;text-align:center;
+  border-top:1px solid rgba(201,168,76,.14);margin-bottom:60px
+}
+.footer-brand{font-family:'Playfair Display',serif;color:var(--gold);font-size:1.05rem;margin-bottom:5px}
+.footer p{font-size:.76rem;color:rgba(255,255,255,.3);font-weight:300}
+
+.pb{padding-bottom:80px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fu{animation:fadeUp .5s ease both}
+.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav">
+  <a class="logo" href="#" onclick="showPage('home');return false">
+    <div class="logo-icon">
+      <svg viewBox="0 0 24 24"><path d="M12 2C8 2 5 5.5 5 9c0 3.2 2 6 5 7.5V19h4v-2.5C17 15 19 12.2 19 9c0-3.5-3-7-7-7z"/></svg>
+    </div>
+    <span class="logo-name">SJ <b>Ice World</b></span>
+  </a>
+  <nav class="dnav">
+    <a href="#" id="nav-home" class="active" onclick="showPage('home');return false">Home</a>
+    <a href="#" id="nav-products" onclick="showPage('products');return false">Products</a>
+    <a href="#" id="nav-contact" onclick="showPage('contact');return false">Contact</a>
+  </nav>
+</nav>
+
+<!-- ══════════════ HOME ══════════════ -->
+<div class="page active" id="page-home">
+
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner fu">
+      <div class="hero-badge"><i></i> Konaseema · Andhra Pradesh</div>
+      <h1>Premium <span>Dairy</span> &amp;<br>Frozen Delights</h1>
+      <p>Artisan ice creams, farm-fresh dairy, chocolates &amp; more — quality in every bite.</p>
+      <div class="ctas">
+        <button class="btn btn-gold" onclick="showPage('products')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          View Products
+        </button>
+        <a href="tel:9160106405" class="btn btn-ghost">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006.72 6.72l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+          Call Now
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat fu d1"><div class="stat-n">100+</div><div class="stat-l">Products</div></div>
+    <div class="stat fu d2"><div class="stat-n">8+</div><div class="stat-l">Categories</div></div>
+    <div class="stat fu d3"><div class="stat-n">Daily</div><div class="stat-l">Fresh Stock</div></div>
+    <div class="stat fu"><div class="stat-n">GST</div><div class="stat-l">Certified</div></div>
+  </div>
+
+  <!-- FEATURED -->
+  <div class="sec bg-w">
+    <div class="sh">
+      <div class="slabel">Our Selection</div>
+      <h2 class="stitle">Bestselling Products</h2>
+      <p class="ssub">Handpicked favourites loved by our customers.</p>
+    </div>
+    <div class="pgrid">
+      <div class="pcard">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=85&auto=format&fit=crop" alt="Vanilla Ice Cream"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Classic Vanilla</div><div class="pdesc">Rich, creamy &amp; timeless</div></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?w=600&q=85&auto=format&fit=crop" alt="Dark Chocolate"></div>
+        <div class="pbody"><div class="pcat">Chocolate</div><div class="pname">Dark Chocolate</div><div class="pdesc">Premium 70% cocoa</div></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&q=85&auto=format&fit=crop" alt="Fresh Milk"></div>
+        <div class="pbody"><div class="pcat">Dairy</div><div class="pname">Full Cream Milk</div><div class="pdesc">Farm fresh, daily delivery</div></div>
+      </div>
+      <div class="pcard">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1624806992066-5ffcf7ca186b?w=600&q=85&auto=format&fit=crop" alt="Cheese"></div>
+        <div class="pbody"><div class="pcat">Cheese</div><div class="pname">Cheddar Slices</div><div class="pdesc">Aged sharp cheddar</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:26px">
+      <button class="btn btn-gold" onclick="showPage('products')">See All Products</button>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="sec">
+    <div class="sh">
+      <div class="slabel">Our Promise</div>
+      <h2 class="stitle">Why Choose SJ Ice World</h2>
+    </div>
+    <div class="wgrid">
+      <div class="wcard">
+        <div class="wicon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h4>100% Fresh</h4><p>Sourced from local farms every single day without compromise.</p>
+      </div>
+      <div class="wcard">
+        <div class="wicon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <h4>Open Daily</h4><p>7 days a week with consistent stock available year-round.</p>
+      </div>
+      <div class="wcard">
+        <div class="wicon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h4>GST Registered</h4><p>Fully compliant, trusted business serving Konaseema region.</p>
+      </div>
+      <div class="wcard">
+        <div class="wicon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <h4>Customer First</h4><p>Genuine care and quality in every product we offer.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA BAND -->
+  <div style="background:var(--dark);padding:44px 22px;text-align:center" class="pb">
+    <div class="slabel" style="justify-content:center;margin-bottom:12px">Get In Touch</div>
+    <h2 class="stitle w" style="color:#fff;margin-bottom:10px">Ready to Order?</h2>
+    <p style="color:rgba(255,255,255,.45);font-size:.88rem;margin-bottom:26px;font-weight:300">Call us or WhatsApp — we respond quickly.</p>
+    <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="tel:9160106405" class="btn btn-gold">📞 &nbsp;91601 06405</a>
+      <a href="https://wa.me/919160106405?text=Hi%20SJ%20Ice%20World!%20I%20would%20like%20to%20order." target="_blank" class="btn btn-ghost">💬 &nbsp;WhatsApp</a>
+    </div>
+  </div>
+
+</div><!-- /home -->
+
+<!-- ══════════════ PRODUCTS ══════════════ -->
+<div class="page" id="page-products">
+
+  <div style="background:var(--dark);padding:38px 22px 28px">
+    <div class="slabel">Our Menu</div>
+    <h2 class="stitle w" style="color:#fff;margin-top:8px">All Products</h2>
+    <p class="ssub w">Fresh dairy · Ice creams · Chocolates · Honey &amp; more</p>
+  </div>
+
+  <div class="fbar">
+    <button class="fbtn active" onclick="filter('all',this)">All Products</button>
+    <button class="fbtn" onclick="filter('icecream',this)">Ice Cream</button>
+    <button class="fbtn" onclick="filter('dairy',this)">Dairy</button>
+    <button class="fbtn" onclick="filter('butter',this)">Butter &amp; Ghee</button>
+    <button class="fbtn" onclick="filter('cheese',this)">Cheese</button>
+    <button class="fbtn" onclick="filter('chocolate',this)">Chocolate</button>
+    <button class="fbtn" onclick="filter('drinks',this)">Drinks</button>
+    <button class="fbtn" onclick="filter('frozen',this)">Frozen</button>
+    <button class="fbtn" onclick="filter('honey',this)">Honey</button>
+  </div>
+
+  <div class="sec bg-w pb" style="padding-top:6px">
+    <div class="pgrid" id="pg">
+
+      <!-- ICE CREAM — reliable Unsplash IDs -->
+      <div class="pcard" data-cat="icecream">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1570197788417-0e82375c9371?w=600&q=85&auto=format&fit=crop" alt="Vanilla" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Classic Vanilla</div><div class="pdesc">Creamy farm milk base</div></div>
+      </div>
+      <div class="pcard" data-cat="icecream">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1501443762994-82bd5dace89a?w=600&q=85&auto=format&fit=crop" alt="Choco Scoop" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Chocolate Scoop</div><div class="pdesc">Rich cocoa gelato</div></div>
+      </div>
+      <div class="pcard" data-cat="icecream">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=85&auto=format&fit=crop" alt="Strawberry" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Strawberry Dream</div><div class="pdesc">Fresh berry sorbet</div></div>
+      </div>
+      <div class="pcard" data-cat="icecream">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=600&q=85&auto=format&fit=crop" alt="Sundae" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Butterscotch Sundae</div><div class="pdesc">Caramel drizzle &amp; nuts</div></div>
+      </div>
+      <div class="pcard" data-cat="icecream">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1488900128323-21503983a07e?w=600&q=85&auto=format&fit=crop" alt="Mango" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Ice Cream</div><div class="pname">Mango Kulfi</div><div class="pdesc">Alphonso mango delight</div></div>
+      </div>
+
+      <!-- DAIRY -->
+      <div class="pcard" data-cat="dairy">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1550583724-b2692b85b150?w=600&q=85&auto=format&fit=crop" alt="Milk" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Dairy</div><div class="pname">Full Cream Milk</div><div class="pdesc">Pasteurised daily</div></div>
+      </div>
+      <div class="pcard" data-cat="dairy">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=600&q=85&auto=format&fit=crop" alt="Curd" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Dairy</div><div class="pname">Set Curd</div><div class="pdesc">Thick &amp; probiotic-rich</div></div>
+      </div>
+
+      <!-- BUTTER -->
+      <div class="pcard" data-cat="butter">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=600&q=85&auto=format&fit=crop" alt="Butter" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Butter &amp; Ghee</div><div class="pname">White Butter</div><div class="pdesc">Hand-churned, unsalted</div></div>
+      </div>
+      <div class="pcard" data-cat="butter">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1603048719539-9ecb4aa395e3?w=600&q=85&auto=format&fit=crop" alt="Ghee" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Butter &amp; Ghee</div><div class="pname">Pure Desi Ghee</div><div class="pdesc">A2 cow milk clarified</div></div>
+      </div>
+
+      <!-- CHEESE -->
+      <div class="pcard" data-cat="cheese">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=600&q=85&auto=format&fit=crop" alt="Paneer" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Cheese</div><div class="pname">Fresh Paneer</div><div class="pdesc">Soft homestyle cottage</div></div>
+      </div>
+      <div class="pcard" data-cat="cheese">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1624806992066-5ffcf7ca186b?w=600&q=85&auto=format&fit=crop" alt="Cheddar" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Cheese</div><div class="pname">Cheddar Slices</div><div class="pdesc">Aged sharp cheddar</div></div>
+      </div>
+      <div class="pcard" data-cat="cheese">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1452195100486-9cc805987862?w=600&q=85&auto=format&fit=crop" alt="Cheese board" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Cheese</div><div class="pname">Cheese Block</div><div class="pdesc">Premium table cheese</div></div>
+      </div>
+
+      <!-- CHOCOLATE -->
+      <div class="pcard" data-cat="chocolate">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1481391243133-f96216dcb5d2?w=600&q=85&auto=format&fit=crop" alt="Dark Choc" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Chocolate</div><div class="pname">Dark Chocolate Bar</div><div class="pdesc">70% cocoa, single origin</div></div>
+      </div>
+      <div class="pcard" data-cat="chocolate">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?w=600&q=85&auto=format&fit=crop" alt="Milk Choc" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Chocolate</div><div class="pname">Milk Chocolate</div><div class="pdesc">Smooth &amp; sweet blend</div></div>
+      </div>
+      <div class="pcard" data-cat="chocolate">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=85&auto=format&fit=crop" alt="Truffle" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Chocolate</div><div class="pname">Truffle Bonbons</div><div class="pdesc">Handcrafted ganache</div></div>
+      </div>
+
+      <!-- DRINKS -->
+      <div class="pcard" data-cat="drinks">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=85&auto=format&fit=crop" alt="Milkshake" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Drinks</div><div class="pname">Thick Milkshake</div><div class="pdesc">Choco, vanilla, strawberry</div></div>
+      </div>
+      <div class="pcard" data-cat="drinks">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1534353436294-0dbd4bdac845?w=600&q=85&auto=format&fit=crop" alt="Lassi" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Drinks</div><div class="pname">Sweet Lassi</div><div class="pdesc">Chilled yogurt drink</div></div>
+      </div>
+      <div class="pcard" data-cat="drinks">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&q=85&auto=format&fit=crop" alt="Cold Coffee" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Drinks</div><div class="pname">Cold Coffee</div><div class="pdesc">Espresso over ice cream</div></div>
+      </div>
+
+      <!-- FROZEN -->
+      <div class="pcard" data-cat="frozen">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1505394033641-40bd6b9e44a6?w=600&q=85&auto=format&fit=crop" alt="Popsicle" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Frozen</div><div class="pname">Fruit Popsicle</div><div class="pdesc">Natural mango &amp; berries</div></div>
+      </div>
+      <div class="pcard" data-cat="frozen">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1514849302-984523450cf4?w=600&q=85&auto=format&fit=crop" alt="Frozen Yogurt" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Frozen</div><div class="pname">Frozen Yogurt</div><div class="pdesc">Low-fat probiotic delight</div></div>
+      </div>
+
+      <!-- HONEY -->
+      <div class="pcard" data-cat="honey">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1471943038711-c81918453028?w=600&q=85&auto=format&fit=crop" alt="Honey" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Honey</div><div class="pname">Wild Forest Honey</div><div class="pdesc">Raw, unfiltered &amp; natural</div></div>
+      </div>
+      <div class="pcard" data-cat="honey">
+        <div class="pimg"><img src="https://images.unsplash.com/photo-1558642452-9d2a7deb7f62?w=600&q=85&auto=format&fit=crop" alt="Organic Honey" loading="lazy"></div>
+        <div class="pbody"><div class="pcat">Honey</div><div class="pname">Organic Floral Honey</div><div class="pdesc">Light, aromatic &amp; pure</div></div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /products -->
+
+<!-- ══════════════ CONTACT ══════════════ -->
+<div class="page" id="page-contact">
+
+  <div style="background:var(--dark);padding:42px 22px 32px">
+    <div class="slabel">Find Us</div>
+    <h2 class="stitle w" style="color:#fff;margin-top:8px">Visit or Contact Us</h2>
+    <p class="ssub w">We're always happy to serve you — in store or over the phone.</p>
+  </div>
+
+  <div class="sec bg-w" style="padding-bottom:18px">
+    <div class="slabel" style="margin-bottom:14px">Business Details</div>
+    <div class="ctiles">
+      <div class="ctile">
+        <div class="ctile-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><div class="ctile-lbl">Address</div><div class="ctile-val">First Floor 2-50, Jonnada, Konaseema, AP</div></div>
+      </div>
+      <div class="ctile">
+        <div class="ctile-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+        <div><div class="ctile-lbl">Email</div><div class="ctile-val">sjiceworld@gmail.com</div></div>
+      </div>
+      <div class="ctile">
+        <div class="ctile-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006.72 6.72l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+        <div><div class="ctile-lbl">Phone</div><div class="ctile-val">+91 91601 06405</div></div>
+      </div>
+      <div class="ctile">
+        <div class="ctile-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+        <div><div class="ctile-lbl">GSTIN</div><div class="ctile-val">37BKZPL3858F1ZE</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sec" style="padding-top:0;padding-bottom:18px">
+    <div class="slabel" style="margin-bottom:14px">Quick Connect</div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <a href="tel:9160106405" class="abtn a-call">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006.72 6.72l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+        Call — 91601 06405
+      </a>
+      <a href="https://wa.me/919160106405?text=Hi%20SJ%20Ice%20World!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="abtn a-wa">
+        <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+        Chat on WhatsApp
+      </a>
+      <a href="https://maps.google.com/?q=Jonnada+Konaseema+East+Godavari+Andhra+Pradesh" target="_blank" class="abtn a-maps">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Open in Google Maps
+      </a>
+    </div>
+  </div>
+
+  <div class="sec bg-w pb" style="padding-top:0">
+    <div class="slabel" style="margin-bottom:14px">Business Hours</div>
+    <div class="hours-box">
+      <div class="hours-head"><h3>Opening Hours</h3></div>
+      <div class="hrow"><span class="day">Monday – Friday</span><span class="time">9:00 AM – 9:00 PM</span></div>
+      <div class="hrow"><span class="day">Saturday</span><span class="time">8:00 AM – 10:00 PM</span></div>
+      <div class="hrow"><span class="day">Sunday</span><span class="time">9:00 AM – 10:00 PM</span></div>
+      <div class="hrow"><span class="day">Public Holidays</span><span class="time">10:00 AM – 8:00 PM</span></div>
+    </div>
+  </div>
+
+</div><!-- /contact -->
+
+<div class="footer">
+  <div class="footer-brand">SJ Ice World</div>
+  <p>Jonnada, Konaseema, Andhra Pradesh &nbsp;·&nbsp; GSTIN 37BKZPL3858F1ZE</p>
+  <p style="margin-top:3px">© 2026 SJ Ice World. All rights reserved.</p>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="bn active" id="bn-home" onclick="showPage('home')">
+    <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </button>
+  <button class="bn" id="bn-products" onclick="showPage('products')">
+    <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg>
+    Products
+  </button>
+  <button class="bn" id="bn-contact" onclick="showPage('contact')">
+    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8 19.79 19.79 0 012 2.18 2 2 0 014 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 7.91a16 16 0 006.72 6.72l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg>
+    Contact
+  </button>
+</nav>
+
+<script>
+function showPage(n){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+n).classList.add('active');
+  ['home','products','contact'].forEach(x=>{
+    document.getElementById('bn-'+x).classList.toggle('active',x===n);
+    const el=document.getElementById('nav-'+x);
+    if(el)el.classList.toggle('active',x===n);
+  });
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function filter(cat,btn){
+  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#pg .pcard').forEach(c=>{
+    c.classList.toggle('hide', cat!=='all' && c.dataset.cat!==cat);
+  });
+}
+
+// Fallback for broken images
+document.querySelectorAll('.pimg img').forEach(img=>{
+  img.onerror=function(){
+    this.style.display='none';
+    this.parentElement.style.background='linear-gradient(135deg,#f0ebe3,#e8e0d4)';
+    this.parentElement.innerHTML='<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2rem;color:#C9A84C">🍦</div>';
+  };
+});
+</script>
+</body>
+</html>
